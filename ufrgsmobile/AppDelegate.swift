@@ -20,9 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UITabBar.appearance().tintColor = redColor
         
-        UINavigationBar.appearance().barTintColor = redColor
+        //UINavigationBar.appearance().barTintColor = redColor
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
+        UINavigationBar.appearance().setBackgroundImage(UIImage(named: "ufrgsIosLogoNovoBg2"), forBarMetrics: UIBarMetrics.Default)
         
         application.setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
         

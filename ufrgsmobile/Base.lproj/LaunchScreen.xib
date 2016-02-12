@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,7 +11,10 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_launcher-web" translatesAutoresizingMaskIntoConstraints="NO" id="kl5-Bb-qkb">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ufrgsIosLogoNovoBg" translatesAutoresizingMaskIntoConstraints="NO" id="kNC-CX-KSS">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ufrgsIosLogoNovoTocha" translatesAutoresizingMaskIntoConstraints="NO" id="kl5-Bb-qkb">
                     <rect key="frame" x="140" y="140" width="200" height="200"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="200" id="AES-03-c4T"/>
@@ -21,7 +24,11 @@
             </subviews>
             <color key="backgroundColor" red="0.8901960784313725" green="0.27058823529411763" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="kNC-CX-KSS" secondAttribute="bottom" id="HvS-qe-gbO"/>
+                <constraint firstAttribute="trailing" secondItem="kNC-CX-KSS" secondAttribute="trailing" id="NSf-hV-rIi"/>
                 <constraint firstAttribute="centerY" secondItem="kl5-Bb-qkb" secondAttribute="centerY" id="gb7-Mw-xNz"/>
+                <constraint firstItem="kNC-CX-KSS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="haL-gq-yAG"/>
+                <constraint firstItem="kNC-CX-KSS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="xWE-gT-edQ"/>
                 <constraint firstAttribute="centerX" secondItem="kl5-Bb-qkb" secondAttribute="centerX" id="xzW-5p-EjL"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
@@ -30,6 +37,7 @@
         </view>
     </objects>
     <resources>
-        <image name="ic_launcher-web" width="256" height="256"/>
+        <image name="ufrgsIosLogoNovoBg" width="512" height="512"/>
+        <image name="ufrgsIosLogoNovoTocha" width="512" height="512"/>
     </resources>
 </document>
