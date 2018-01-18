@@ -2,16 +2,21 @@
 //  BiblioCell.swift
 //  ufrgsmobile
 //
-//  Created by Theodoro L. Mota on 11/09/15.
-//  Copyright (c) 2015 Theodoro L. Mota. All rights reserved.
+//  Created by Lucas Flores on 18/01/17.
+//  Copyright © 2017 CPD UFRGS. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
-class BiblioCell: UITableViewCell {
 
-    @IBOutlet weak var bookTitle: UILabel!
-    @IBOutlet weak var autorTitle: UILabel!
-    @IBOutlet weak var bookBiblio: UILabel!
-    @IBOutlet weak var bookDate: UILabel!
+class BiblioCell: UITableViewCell{
+    
+    @IBOutlet weak var bookName: UILabel!
+    @IBOutlet weak var bookAuthor: UILabel!
+    @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var bookImage: UIImageView!
+    
+    
+    
 }

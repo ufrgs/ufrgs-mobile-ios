@@ -1,18 +1,22 @@
 //
 //  Book.swift
-//  SabiRenovator
+//  ufrgsmobile
 //
-//  Created by Theodoro L. Mota on 06/05/15.
-//  Copyright (c) 2015 Theodoro L. Mota. All rights reserved.
+//  Created by Lucas Flores on 18/01/17.
+//  Copyright © 2017 CPD UFRGS. All rights reserved.
 //
 
+import Foundation
 
 class Book: NSObject {
     
     var id : Int = 0
-    var autor : String = "null"
-    var titulo : String = "null"
-    var dataEntrega : NSDate = NSDate(timeIntervalSinceReferenceDate: NSDate.timeIntervalSinceReferenceDate())
-    var biblioteca : String = "null"
-
+    var autor : String = ""
+    var titulo : String = ""
+    var dataEntrega : String = ""
+    var biblioteca : String = ""
+    var status : String = ""
+    var isbn : String = ""
+    var imageLink : String = ""
+    
 }

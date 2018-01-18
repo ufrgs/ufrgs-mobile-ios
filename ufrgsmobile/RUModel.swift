@@ -1,14 +1,17 @@
 //
-//  RUModel.swift
+//  File.swift
 //  ufrgsmobile
 //
-//  Created by Theodoro L. Mota on 30/09/15.
-//  Copyright © 2015 Theodoro L. Mota. All rights reserved.
+//  Created by Lucas Flores on 09/01/17.
+//  Copyright © 2017 CPD UFRGS. All rights reserved.
 //
+
+import Foundation
 
 class RUModel: NSObject {
     
     var nome : String = ""
     var cardapio : String = ""
+    var imagem : String = ""
     
 }
