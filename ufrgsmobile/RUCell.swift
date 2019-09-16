@@ -14,5 +14,17 @@ class RuCell: UITableViewCell {
     @IBOutlet weak var ruTitle: UILabel!
     @IBOutlet weak var cardapio: UILabel!
     
+    func configure() {
+//        self.ruImage.contentMode = .scaleAspectFill
+        self.clipsToBounds = true
+//        self.ruImage.clipsToBounds = true
+        self.backgroundColor = .clear
+        self.selectionStyle = .none
+    }
+    
+}
+
+class DalCell: UITableViewCell {
+    
 }
 

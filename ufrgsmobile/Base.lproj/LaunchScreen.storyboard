@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,15 +22,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ufrgsIosLogoNovoTocha" translatesAutoresizingMaskIntoConstraints="NO" id="lWN-yl-Up6">
-                                <rect key="frame" x="16" y="20" width="343" height="627"/>
+                                <rect key="frame" x="112.5" y="258.5" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="5gs-vi-KOS"/>
+                                    <constraint firstAttribute="width" constant="150" id="eH0-UV-Izq"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.89170223474502563" green="0.2764430046081543" blue="0.25517845153808594" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="lWN-yl-Up6" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="Uhi-zu-Bze"/>
-                            <constraint firstItem="lWN-yl-Up6" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="Yx6-xZ-OGg"/>
-                            <constraint firstAttribute="bottom" secondItem="lWN-yl-Up6" secondAttribute="bottom" constant="20" symbolic="YES" id="ZMv-re-SJe"/>
-                            <constraint firstItem="lWN-yl-Up6" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailingMargin" id="smy-LV-m4v"/>
+                            <constraint firstItem="lWN-yl-Up6" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="8Q1-mF-nEh"/>
+                            <constraint firstItem="lWN-yl-Up6" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="NLp-YS-upA"/>
                         </constraints>
                     </view>
                 </viewController>

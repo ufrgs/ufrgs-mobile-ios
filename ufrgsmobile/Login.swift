@@ -13,13 +13,6 @@ import SwiftyJSON
 
 class Login: NSObject {
     
-    func getOrders(completionHandler: @escaping (Bool?, Error?) -> (), id: String, pass: String) {
-        makeCall("orders", completionHandler: completionHandler, id: id, pass: pass)
-    }
+    func getOrders(completionHandler: @escaping (Bool?, Error?) -> (), id: String, pass: String) {}
     
-    func makeCall(_ section: String, completionHandler: @escaping (Bool, Error?) -> (), id: String, pass: String) {
-        
-        var result: Bool = false
-        completionHandler(result, nil)
-    }
 }

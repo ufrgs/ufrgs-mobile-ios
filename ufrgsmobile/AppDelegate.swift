@@ -14,18 +14,18 @@ import FirebaseInstanceID
 import FirebaseMessaging
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, FIRMessagingDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
 
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        let redColor = UIColor(red: 227.0/255.0, green: 69.0/255.0, blue: 64.0/255.0, alpha: 1.0)
+        let redColor = UIColor.navBarColor()
         UITabBar.appearance().tintColor = redColor
         UINavigationBar.appearance().barTintColor = redColor
         UINavigationBar.appearance().tintColor = UIColor.white
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
         UINavigationBar.appearance().barTintColor = redColor
         UIApplication.shared.statusBarStyle = .lightContent
         
@@ -34,12 +34,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
             UNUserNotificationCenter.current().delegate = self
+            
             let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
             UNUserNotificationCenter.current().requestAuthorization(
                 options: authOptions,
                 completionHandler: {_, _ in })
-            // For iOS 10 data message (sent via FCM
-            FIRMessaging.messaging().remoteMessageDelegate = self
         } else {
             let settings: UIUserNotificationSettings =
                 UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
@@ -48,37 +47,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         application.registerForRemoteNotifications()
         
-        FIRApp.configure()
-        
-        NotificationCenter.default.addObserver(self,
-                                                    selector: #selector(tokenRefreshNotification),
-                                                    name: NSNotification.Name.firInstanceIDTokenRefresh,
-                                                    object: nil)
+        configureNavBarStyle()
+        configureTabBarStyle()
         
         return true
     }
     
     public func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+//        InstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.sandbox)
+//        InstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.prod)
         
-        FIRInstanceID.instanceID().setAPNSToken(deviceToken as Data, type: FIRInstanceIDAPNSTokenType.sandbox)
-        FIRInstanceID.instanceID().setAPNSToken(deviceToken as Data, type: FIRInstanceIDAPNSTokenType.prod)
+        Messaging.messaging().setAPNSToken(deviceToken, type: MessagingAPNSTokenType.sandbox)
+        Messaging.messaging().setAPNSToken(deviceToken, type: MessagingAPNSTokenType.prod)
     }
     
-    func tokenRefreshNotification(notification: NSNotification) {
+    @objc func tokenRefreshNotification(notification: NSNotification) {
         // NOTE: It can be nil here
-        let refreshedToken = FIRInstanceID.instanceID().token()
+        let refreshedToken = InstanceID.instanceID().token()
         print("InstanceID token: \(String(describing: refreshedToken))")
         
         connectToFcm()
     }
     
     func connectToFcm() {
-        FIRMessaging.messaging().connect { (error) in
+        Messaging.messaging().connect { (error) in
             if (error != nil) {
                 print("Unable to connect with FCM. \(String(describing: error))")
             } else {
                 print("Connected to FCM.")
-                print(FIRInstanceID.instanceID().token() as Any)
+                print(InstanceID.instanceID().token() as Any)
             }
         }
     }
@@ -108,9 +105,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
     }
 
+    func configureNavBarStyle() {
+        
+        if let font = UIFont(name: "AvenirNext-DemiBold", size: 18) {
+            UINavigationBar.appearance().titleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.white,
+                NSAttributedString.Key.font: font
+            ]
+        }
+        
+    }
+    
+    func configureTabBarStyle() {
+        
+        if let font = UIFont(name: "AvenirNext-Medium", size: 11.0) {
+            
+            UITabBarItem.appearance().setTitleTextAttributes(
+                [NSAttributedStringKey.foregroundColor : UIColor.navBarColor(),
+                 NSAttributedStringKey.font: font], for: .selected)
+            
+            UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.font: font], for: .normal)
+            
+            UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -2)
+            
+        }
+    }
     
     // The callback to handle data message received via FCM for devices running iOS 10 or above.
-    func applicationReceivedRemoteMessage(_ remoteMessage: FIRMessagingRemoteMessage) {
+    func applicationReceivedRemoteMessage(_ remoteMessage: MessagingRemoteMessage) {
         print(remoteMessage.appData)
     }
 
@@ -136,6 +158,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
 }
-

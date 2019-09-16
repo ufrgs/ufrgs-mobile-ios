@@ -5,12 +5,8 @@ target 'ufrgsmobile' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
   
-  pod 'Alamofire', '~> 4.0'
-  pod 'Kingfisher', :git => 'https://github.com/onevcat/Kingfisher.git', :tag => '3.0.1'
-  pod 'SwiftyJSON'
-  pod 'SwiftOverlays', '~> 3.0.0'
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
-  pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift3'
-  
+  pod 'SwiftSoup'
+
 end

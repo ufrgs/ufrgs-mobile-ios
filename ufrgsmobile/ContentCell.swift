@@ -13,4 +13,9 @@ class ContentCell: UITableViewCell {
     @IBOutlet weak var labelConstraint: UILabel!
     @IBOutlet weak var webView: UIWebView!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.selectionStyle = .none
+    }
+    
 }

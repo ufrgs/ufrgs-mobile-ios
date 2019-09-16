@@ -1,5 +1,5 @@
 //
-//  CustomTableVIewCell.swift
+//  NewsItemCell.swift
 //  ufrgsmobile
 //
 //  Created by Lucas Flores on 04/01/17.
@@ -8,19 +8,16 @@
 
 import UIKit
 
-class CustomTableViewCell: UITableViewCell {
+class NewsItemCell: UITableViewCell {
     
     @IBOutlet weak var imgNews: UIImageView!
     @IBOutlet weak var lblNewsText: UILabel!
+    @IBOutlet weak var imgWidthConstraint: NSLayoutConstraint!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
+        imgNews.clipsToBounds = true
+        imgNews.layer.cornerRadius = 2.0
     }
     
 }

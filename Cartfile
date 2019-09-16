@@ -1,0 +1,6 @@
+github "Alamofire/Alamofire"
+github "SwiftyJSON/SwiftyJSON"
+github "onevcat/Kingfisher" ~> 4.10.0
+github "peterprokop/SwiftOverlays"
+github "HeroTransitions/Hero"
+

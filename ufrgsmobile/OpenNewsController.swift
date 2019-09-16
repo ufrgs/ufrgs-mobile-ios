@@ -7,26 +7,64 @@
 //
 
 import UIKit
+import Hero
 
-class OpenNewsController: UITableViewController, UIWebViewDelegate, UIGestureRecognizerDelegate{
+class OpenNewsController: UITableViewController, UIGestureRecognizerDelegate {
 
-    var news = NewsItem(title: "", newsDescription: "", imgThumb: "", imgLarge: "", autor: "", data: "", subPhoto: "")
+    // MARK: - Properties
     
+    var news = NewsItem(title: "", newsDescription: "", imgThumb: "", imgLarge: "", autor: "", data: "", subPhoto: "", chamada: "")
+    var webViewHeight: CGFloat = 0.0
+    var image: UIImage?
+    
+    // MARK: - Overrides
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.hero.isEnabled = true
+        self.title = ""
+        
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 100
-        tableView.reloadData()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+        tableView.estimatedRowHeight = 300
+        
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
+        
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "openNewsToViewImage" {
+            let vc = segue.destination as! ImageZoomViewController
+            vc.image = self.image
+        }
+    }
+    
+    // MARK: - Actions
+    
+    @IBAction func share(_ sender: Any) {
+    
+        let url = self.news.imgThumb.components(separatedBy: "/image_thumb")[0]
+        let text = "\(self.news.title)\n\(url)"
+        
+        let activityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        
+        DispatchQueue.main.async {
+            self.present(activityViewController, animated: true, completion: nil)
+        }
+        
+    }
+    
+}
+
+// MARK: - UITableView methods
+
+extension OpenNewsController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
@@ -35,40 +73,66 @@ class OpenNewsController: UITableViewController, UIWebViewDelegate, UIGestureRec
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "image", for: indexPath) as! ImageCell
-            let imageURL = URL(string: news.imgLarge)
-            cell.newsImage.kf_setImage(with: imageURL)
-            
-            if news.subPhoto == "null"{
-                cell.subPhoto.text = ""
-            }
-            
-            else{
-                
-                cell.subPhoto.text = news.subPhoto
-            }
-            
-            return cell
-            
-        }
-            
-        else if indexPath.row == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "title", for: indexPath) as! TitleCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "titleImage", for: indexPath) as! NewsTitleImageCell
+        
+            cell.configure(image: news.thumb)
             cell.newsTitle.text = news.title
+            cell.newsTitle.hero.id = HeroId.newsTitle
             
+            if news.hasImage {
+                let imageURL = URL(string: news.imgLarge)
+                cell.newsImage.kf.setImage(with: imageURL, placeholder: news.thumb)
+                cell.newsImage.hero.id = HeroId.newsImage
+                self.image = cell.newsImage.image
+            }
+                
+            return cell
+        
+        }
+        
+        else if indexPath.row == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "dateCell", for: indexPath) as! NewsDateCell
+            cell.dateLabel.text = news.data
             return cell
         }
-        else {
             
+        else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "content", for: indexPath) as! ContentCell
-            cell.labelConstraint.text = news.newsDescription
+            
             cell.webView.delegate = self
-            cell.webView.loadHTMLString("<font face='Avenir' size='4'>" + news.newsDescription, baseURL: nil)
             cell.webView.scrollView.isScrollEnabled = false
             
+            var html = "<font face='Avenir' size='4.0'>" + self.news.newsDescription
+            html = HtmlUtils.completeRelativeLinks(htmlStr: html)
+            
+            print(html)
+            
+            cell.webView.loadHTMLString(html, baseURL: nil)
+
             return cell
         }
+        
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 && indexPath.row == 2 {
+            return webViewHeight + 32
+        }
+        
+        return UITableViewAutomaticDimension
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0 && self.image != nil {
+            self.performSegue(withIdentifier: "openNewsToViewImage", sender: self)
+        }
+    }
+    
+}
+
+// MARK: - UIWebView methods
+
+extension OpenNewsController: UIWebViewDelegate {
     
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         if navigationType == UIWebViewNavigationType.linkClicked {
@@ -78,32 +142,14 @@ class OpenNewsController: UITableViewController, UIWebViewDelegate, UIGestureRec
         return true
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        let newHeight = webView.scrollView.contentSize.height
         
-        let section = indexPath.section
-        let row = indexPath.row
-        if section == 0 && row == 0{
-            
-            if news.photoW != 0{
-            
-                let x = (CGFloat(news.photoH) * UIScreen.main.bounds.width)/CGFloat(news.photoW)
-            
-                return x
-            }
-            
-            else {
-                
-                return UITableViewAutomaticDimension
-                
-            }
-            
+        if newHeight != webViewHeight {
+            webViewHeight = newHeight
+            tableView.reloadData()
         }
         
-        else if section == 1 && row == 0{
-            
-            return UITableViewAutomaticDimension
-        }
-        
-        return UITableViewAutomaticDimension
     }
+    
 }

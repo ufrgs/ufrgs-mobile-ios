@@ -28,6 +28,7 @@ public protocol PopupContentViewController {
     /** sizeForPopup(popupController: size: showingKeyboard:):
         return view's size
      */
+    
     func sizeForPopup(_ popupController: PopupController, size: CGSize, showingKeyboard: Bool) -> CGSize
 }
 
@@ -147,7 +148,7 @@ public extension PopupController {
         
         childViewController.didMove(toParentViewController: self)
         
-        show(layout, animation: animation) { _ in
+        show(layout, animation: animation) { 
             self.defaultContentOffset = self.baseScrollView.contentOffset
             self.showedHandler?(self)
         }
@@ -162,6 +163,15 @@ public extension PopupController {
     
     public func didCloseHandler(_ handler: @escaping (PopupController) -> Void) -> PopupController {
         self.closedHandler = handler
+        return self
+    }
+    
+    public func registerCloseButton(button: UIButton) -> PopupController {
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PopupController.didTapGesture(_:)))
+        
+        gestureRecognizer.delegate = self
+        button.addGestureRecognizer(gestureRecognizer)
+        
         return self
     }
     
@@ -284,11 +294,11 @@ private extension PopupController {
     
     // Tap Gesture
     @objc func didTapGesture(_ sender: UITapGestureRecognizer) {
-        self.closePopup { _ in }
+        self.closePopup {}
     }
     
     func closePopup(_ completion: (() -> Void)?) {
-        hide(animation) { _ in
+        hide(animation) { 
             completion?()
             self.didClosePopup()
         }
@@ -402,7 +412,7 @@ private extension PopupController {
         popupView.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
         baseScrollView.alpha = 0.0
         
-        UIView.animate(withDuration: 0.3, delay: 0.1, options: UIViewAnimationOptions(), animations: { () -> Void in
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions(), animations: { () -> Void in
             self.popupView.alpha = 1.0
             self.baseScrollView.alpha = 1.0
             self.popupView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
@@ -448,7 +458,7 @@ private extension PopupController {
     func fadeOut(_ completion: @escaping () -> Void) {
         
         UIView.animate(
-            withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: { () -> Void in
+            withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions(), animations: { () -> Void in
                 self.popupView.alpha = 0.0
                 self.baseScrollView.alpha = 0.0
                 self.popupView.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
@@ -459,7 +469,7 @@ private extension PopupController {
     
     func slideOut(_ completion: @escaping () -> Void) {
         
-        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .curveLinear, animations: { () -> Void in
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: .curveLinear, animations: { () -> Void in
             self.popupView.frame.origin.y = UIScreen.main.bounds.height
             self.baseScrollView.alpha = 0.0
             }, completion: { (isFinished) -> Void in
@@ -494,7 +504,7 @@ extension PopupController: UIScrollViewDelegate {
         if delta > 50 {
             baseScrollView.contentInset.top = -scrollView.contentOffset.y
             animation = .slideUp
-            self.closePopup { _ in }
+            self.closePopup {}
         }
     }
     

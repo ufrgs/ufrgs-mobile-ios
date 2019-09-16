@@ -12,6 +12,25 @@ let INFOURL = ""
 
 class UserDefUtils: NSObject {
     
+    static func tokenIsValid() -> Bool {
+        
+        // se possui token
+        if UserDefUtils.getToken() != "nil" {
+            
+            // se possui data e ela não passou ainda
+            if let date = UserDefUtils.getTokenExpiration() {
+                if !DateHelper.dateHasPassed(date) {
+                    return true
+                }
+            }
+        }
+        
+        return false
+        
+    }
+    
+    // MARK: - Token
+    
     static func saveToken(_ token: String){
         let saveTk = UserDefaults.standard
         saveTk.set(token, forKey: "token")
@@ -34,6 +53,32 @@ class UserDefUtils: NSObject {
         deleteTk.synchronize()
     }
     
+    // MARK: - Token Expiration Date
+    
+    static func saveTokenExpiration(_ date: String) {
+        let saveTk = UserDefaults.standard
+        saveTk.set(date, forKey: "tokenExpiration")
+        saveTk.synchronize()
+    }
+    
+    static func getTokenExpiration() -> Date? {
+        
+        let dateAsString = UserDefaults.standard.object(forKey: "tokenExpiration")
+        
+        if dateAsString != nil {
+            return DateHelper.dateFromString(dateAsString as! String)
+        } else {
+            return nil
+        }
+    }
+    
+    static func deleteTokenExpiration() {
+        let deleteTk = UserDefaults.standard
+        deleteTk.removeObject(forKey: "tokenExpiration")
+        deleteTk.synchronize()
+    }
+    
+    // MARK: - Auto renovação
     
     static func saveAuto(_ auto: String){
         let saveAr = UserDefaults.standard
@@ -57,6 +102,7 @@ class UserDefUtils: NSObject {
         deleteAr.synchronize()
     }
 
+    // MARK: - ID
     
     static func deleteID(){
         let deleteAr = UserDefaults.standard
@@ -80,6 +126,9 @@ class UserDefUtils: NSObject {
         }
     }
     
+    
+    // MARK: - FBID
+    
     static func deleteFBID(){
         let deleteAr = UserDefaults.standard
         deleteAr.removeObject(forKey: "FBID")
@@ -102,29 +151,32 @@ class UserDefUtils: NSObject {
         }
     }
     
+    // MARK: - Tics
+    
     static func saveTics(_ tic: [String]){
         let saveTk = UserDefaults.standard
         saveTk.set(tic, forKey: "tics")
         saveTk.synchronize()
     }
 
-    static func getTics() -> [String]{
+    static func getTics() -> [String]? {
         let getTk = UserDefaults.standard.object(forKey: "tics")
         if getTk != nil {
             return getTk as! [String]
         }
         else {
-            return ["nil"]
+            return nil
         }
     }    
-    static func deleteTics(){
+    static func deleteTics() {
         let deleteTk = UserDefaults.standard
         deleteTk.removeObject(forKey: "tics")
         deleteTk.synchronize()
     }
     
+    // MARK: - Data
     
-    static func deleteData(){
+    static func deleteData() {
         let deleteAr = UserDefaults.standard
         deleteAr.removeObject(forKey: "ticData")
         deleteAr.synchronize()
@@ -136,16 +188,27 @@ class UserDefUtils: NSObject {
         saveAr.synchronize()
     }
     
-    static func getData() -> String{
+    static func getData() -> String? {
         let getAr = UserDefaults.standard.object(forKey: "ticData")
         if getAr != nil {
             return getAr as! String
         }
         else {
-            return "nil"
+            return nil
         }
     }
     
-
+    // MARK: - Delete All
+    
+    static func deleteAll() {
+        
+        let userDef = UserDefaults.standard
+        let keys = ["token", "tokenExpiration", "autorrenovacao", "deviceID", "FBID", "tics", "ticData"]
+        
+        for key in keys {
+            userDef.removeObject(forKey: key)
+        }
+        
+    }
     
 }

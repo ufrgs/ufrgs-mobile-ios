@@ -16,15 +16,6 @@ class autorrenovacaoCall: NSObject {
     let apiURL = INFOURL
     var result = false
     
+    func autorrenova(completionHandler: @escaping (Bool?, Error?) -> ()) {}
     
-    func autorrenova(completionHandler: @escaping (Bool?, Error?) -> ()) {
-        makeCall("orders", completionHandler: completionHandler)
-    }
-    
-    func makeCall(_ section: String, completionHandler: @escaping (Bool, Error?) -> ()) {
-                
-        self.result = false
-        completionHandler(self.result, nil)
-                
-    }
 }

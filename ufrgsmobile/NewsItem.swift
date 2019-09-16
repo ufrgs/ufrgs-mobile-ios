@@ -11,6 +11,7 @@ import UIKit
 class NewsItem: NSObject {
     
     var title : String = ""
+    var chamada : String = ""
     var newsDescription : String = ""
     var imgThumb : String = ""
     var imgLarge : String = ""
@@ -19,8 +20,10 @@ class NewsItem: NSObject {
     var subPhoto : String = ""
     var photoW : Int = 0
     var photoH : Int = 0
+    var hasImage = true
+    var thumb: UIImage?
     
-    init(title: String, newsDescription: String, imgThumb: String, imgLarge: String, autor: String, data: String, subPhoto: String) {
+    init(title: String, newsDescription: String, imgThumb: String, imgLarge: String, autor: String, data: String, subPhoto: String, chamada: String) {
         self.autor = autor
         self.data = data
         self.imgThumb = imgThumb
@@ -28,6 +31,7 @@ class NewsItem: NSObject {
         self.newsDescription = newsDescription
         self.title = title
         self.subPhoto = subPhoto
+        self.chamada = chamada
     }
     
 }

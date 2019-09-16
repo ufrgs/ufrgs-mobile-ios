@@ -27,9 +27,8 @@ extension UIColor {
         self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
     }
     
-    func navBarColor() -> UIColor {
-        
-        return UIColor(hexString: "#5a3263")
+    static func navBarColor() -> UIColor {
+        return UIColor(red: 227.0/255.0, green: 69.0/255.0, blue: 64.0/255.0, alpha: 1.0)
     }
     
     func tabBarColor() -> UIColor {
@@ -56,6 +55,5 @@ extension UIColor {
         
         return UIColor(hexString: "#727272")
     }
-    
     
 }

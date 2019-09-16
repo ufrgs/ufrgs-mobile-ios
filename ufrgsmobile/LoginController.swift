@@ -12,11 +12,13 @@ class LoginController: UIViewController {
     @IBOutlet var keyboardHeightLayoutConstraint: NSLayoutConstraint?
     @IBOutlet weak var idText: UITextField!
     @IBOutlet weak var passText: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
     
     let login = Login()
     let putDispositivo = PutDispositivo()
     let getst = GetStatus()
     var loginResult = Bool()
+    var isModal = false
     
     override func viewDidLoad() {
         
@@ -30,26 +32,22 @@ class LoginController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         
-        
+        loginButton.clipsToBounds = true
+        loginButton.layer.cornerRadius = 12.0
     }
     
     deinit {
-        
         NotificationCenter.default.removeObserver(self)
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
-        if UserDefUtils.getToken() != "nil"{
-            
-            performSegue(withIdentifier: "login", sender: self)
-            
+        if UserDefUtils.tokenIsValid() {
+            finishLogin()
+        } else {
+            UserDefUtils.deleteAll()
         }
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -66,6 +64,7 @@ class LoginController: UIViewController {
                 }
                 else {
                     self.removeAllOverlays()
+                    
                     let alert = UIAlertController(title: "Atenção!", message: "Identificação e/ou senha incorretos. Corrija suas informações e tente novamente.", preferredStyle: UIAlertControllerStyle.alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
                     self.present(alert, animated: true, completion: nil)
@@ -76,17 +75,35 @@ class LoginController: UIViewController {
     
     
     func finishLogin() {
+        if isModal {
+            dismissAsModal()
+            return
+        }
+        
         performSegue(withIdentifier: "login", sender: nil)
+        
+        self.idText.text = ""
+        self.passText.text = ""
+        
+        self.idText.resignFirstResponder()
+        self.passText.resignFirstResponder()
+        
         self.removeAllOverlays()
     }
     
+    func configureCancelButton() {
+        isModal = true
+        let button = UIBarButtonItem(title: "Cancelar", style: .plain, target: self, action: #selector(LoginController.dismissAsModal))
+        self.navigationItem.leftBarButtonItem  = button
+    }
     
-    
-    
+    @objc func dismissAsModal() {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     // This constraint ties an element at zero points from the bottom layout gui
     
-    func keyboardNotification(notification: NSNotification) {
+    @objc func keyboardNotification(notification: NSNotification) {
         if let userInfo = notification.userInfo {
             let endFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
             let duration:TimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0

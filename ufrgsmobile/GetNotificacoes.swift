@@ -12,14 +12,9 @@ import Kingfisher
 
 class GetNotificacoes: NSObject {
     
-    func getOrders(completionHandler: @escaping ([NotificItem]?, Error?) -> ()) {
-        makeCall("orders", completionHandler: completionHandler)
-    }
+    let url = "https://www1.ufrgs.br/ws/siteufrgs/getnotificacoes/v"
     
-    func makeCall(_ section: String, completionHandler: @escaping ([NotificItem]?, Error?) -> ()) {
-        var notfic = [NotificItem]()
-        completionHandler(notfic, nil)
-    }
+    func getOrders(completionHandler: @escaping ([NotificItem]?, Error?) -> ()) {}
     
 }
 

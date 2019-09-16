@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3Ub-bu-yrG">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Ru Menu View Controller-->
+        <scene sceneID="1Hy-36-kgn">
+            <objects>
+                <viewController id="3Ub-bu-yrG" customClass="RuMenuViewController" customModule="ufrgsmobile" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dMC-4V-dxr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IpF-Es-wVK">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" text="Nome do RU" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="weE-JJ-CbO">
+                                        <rect key="frame" x="20" y="16" width="335" height="23.5"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.89019607840000003" green="0.27058823529999998" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="BE8-Iz-ebU"/>
+                                    <constraint firstItem="weE-JJ-CbO" firstAttribute="centerY" secondItem="IpF-Es-wVK" secondAttribute="centerY" id="dkD-H3-Cxr"/>
+                                    <constraint firstAttribute="trailing" secondItem="weE-JJ-CbO" secondAttribute="trailing" constant="20" id="odx-j9-XFD"/>
+                                    <constraint firstItem="weE-JJ-CbO" firstAttribute="leading" secondItem="IpF-Es-wVK" secondAttribute="leading" constant="20" id="uvm-GI-q1o"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1fv-Tn-YIi">
+                                <rect key="frame" x="0.0" y="55" width="375" height="320"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ruMenuCell" rowHeight="97" id="ouL-8l-vX4" customClass="RuMenuCell" customModule="ufrgsmobile" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="97"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ouL-8l-vX4" id="TfW-Ag-Yhu">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="97"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zyK-4g-F2h">
+                                                    <rect key="frame" x="20" y="20" width="335" height="56.5"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="zyK-4g-F2h" secondAttribute="bottom" constant="20" id="FRv-oP-fmO"/>
+                                                <constraint firstAttribute="trailing" secondItem="zyK-4g-F2h" secondAttribute="trailing" constant="20" id="jbQ-Fa-6PV"/>
+                                                <constraint firstItem="zyK-4g-F2h" firstAttribute="leading" secondItem="TfW-Ag-Yhu" secondAttribute="leading" constant="20" id="jvx-bd-3hR"/>
+                                                <constraint firstItem="zyK-4g-F2h" firstAttribute="top" secondItem="TfW-Ag-Yhu" secondAttribute="top" constant="20" id="o8Z-wI-n1F"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="menuLabel" destination="zyK-4g-F2h" id="Mmf-QR-7nr"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="3Ub-bu-yrG" id="chm-Cw-15s"/>
+                                    <outlet property="delegate" destination="3Ub-bu-yrG" id="0qX-Pw-P88"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="1fv-Tn-YIi" firstAttribute="top" secondItem="IpF-Es-wVK" secondAttribute="bottom" id="461-N8-UQZ"/>
+                            <constraint firstItem="1fv-Tn-YIi" firstAttribute="leading" secondItem="8OL-ZC-uYc" secondAttribute="leading" id="EZu-Vh-jpN"/>
+                            <constraint firstItem="8OL-ZC-uYc" firstAttribute="trailing" secondItem="IpF-Es-wVK" secondAttribute="trailing" id="Sh3-FG-o3O"/>
+                            <constraint firstItem="IpF-Es-wVK" firstAttribute="top" secondItem="8OL-ZC-uYc" secondAttribute="top" id="XbK-Hk-g3Y"/>
+                            <constraint firstItem="8OL-ZC-uYc" firstAttribute="trailing" secondItem="1fv-Tn-YIi" secondAttribute="trailing" id="rTN-mO-YTF"/>
+                            <constraint firstItem="IpF-Es-wVK" firstAttribute="leading" secondItem="8OL-ZC-uYc" secondAttribute="leading" id="vFx-Of-f7q"/>
+                            <constraint firstItem="8OL-ZC-uYc" firstAttribute="bottom" secondItem="1fv-Tn-YIi" secondAttribute="bottom" id="zdb-1u-BDk"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="8OL-ZC-uYc"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="375"/>
+                    <connections>
+                        <outlet property="ruNameLabel" destination="weE-JJ-CbO" id="m74-6C-brx"/>
+                        <outlet property="tableView" destination="1fv-Tn-YIi" id="EJM-p0-m1k"/>
+                        <outlet property="topBarView" destination="IpF-Es-wVK" id="fM5-uU-yEp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SHF-sk-Bcp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-55.200000000000003" y="28.335832083958024"/>
+        </scene>
+    </scenes>
+</document>

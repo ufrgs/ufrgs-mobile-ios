@@ -16,13 +16,6 @@ class RenovarAgora: NSObject {
     let apiURL = INFOURL
     var result = ""
     
+    func renovar(completionHandler: @escaping (String?, Error?) -> ()) {}
     
-    func renovar(completionHandler: @escaping (String?, Error?) -> ()) {
-        makeCall("orders", completionHandler: completionHandler)
-    }
-    
-    func makeCall(_ section: String, completionHandler: @escaping (String, Error?) -> ()) {
-        
-        completionHandler(self.result, nil)
-    }
 }
